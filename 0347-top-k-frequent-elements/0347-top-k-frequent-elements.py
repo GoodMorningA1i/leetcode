@@ -1,46 +1,26 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        def findLargestNumInDict(nums_to_occurences, nums_used):
-            #Find the max in dictionary
-            #Add a temp array of the occurences
-            #Max cannot be in this array because it was already checked
-            #Find the next max
-            
-            max_occurence = 0
-            max_num = -10^5
-            for num in nums_to_occurences:
-                occurence = nums_to_occurences[num]
-                if occurence > max_occurence and num not in nums_used:
-                    max_occurence = occurence
-                    max_num = num
-            
-            return max_num
-            
-        nums_to_occurences_dict = {}
+        """
+        [1,2,3,4,1,2,3,1,2,1, 3], k = 2
+        [1,2] or [1,3] or doesn't matter
+
+        size, empty, how big
+        dichotomy, duplicates
+        boundary, ties
+        order, sorted
+        """
+
+        elementToOccurences = defaultdict(int)
         for num in nums:
-            if num not in nums_to_occurences_dict:
-                nums_to_occurences_dict[num] = 0
-            nums_to_occurences_dict[num] += 1
-        
-        nums_used = []
-        for i in range(k):
-            max_num = findLargestNumInDict(nums_to_occurences_dict, nums_used)
-            nums_used.append(max_num)
+            elementToOccurences[num] += 1
 
-        return nums_used    
+        sortedItems = sorted(elementToOccurences.items(), key=lambda x: x[1], reverse=True)
+        result = []
+        counter = 0
+        for item in sortedItems:
+            if counter == k:
+                break
+            result.append(item[0])
+            counter += 1
 
-        #Brute force
-        #Creating a dictionary of integer element with number of occurences
-        #Sort?
-        #Choose the top k most frequent elements
-        #Time Complexity: O(n*k)
-        #Space Complexity: O(n)
-
-        #Actually same as above but different approach
-        #Sliding Windows
-        #Make sure it sorted
-        #Increment the window, keep track of the largest ones
-        #Time Complexity: O(n^2)
-        #Space Complexity: O(1) -> O(n)
-
-        #Optimal?
+        return result
