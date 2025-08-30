@@ -6,7 +6,7 @@ class Solution:
         for prereq in prerequisites:
             a = prereq[0]
             b = prereq[1]
-            graph[b].append(a)
+            graph[a].append(b)
 
         output = []
         visit = set()
@@ -32,4 +32,4 @@ class Solution:
         for course in range(numCourses):
             if dfs(course) == False:
                 return []
-        return output[::-1]
+        return output
