@@ -26,6 +26,6 @@ class Solution:
             return 0
 
         res += 1
-        res += max(Solution.maxDepth(self, root.left), Solution.maxDepth(self, root.right))
+        res += max(self.maxDepth(root.left), self.maxDepth(root.right))
 
         return res
