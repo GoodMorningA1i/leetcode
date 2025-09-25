@@ -4,8 +4,6 @@ class Solution:
         for i in range(0, len(nums)):
             if nums[i] not in value_to_index:
                 value_to_index[nums[i]] = i
-            
-        print(value_to_index)
                 
         for i in range(0, len(nums)):
             complacent = target - nums[i]
