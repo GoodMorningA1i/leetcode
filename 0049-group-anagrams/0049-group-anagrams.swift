@@ -4,17 +4,9 @@ class Solution {
 
         for word in strs {
             let sortedWord = String(word.sorted())
-            print(sortedWord)
-            if anagrams[sortedWord] == nil {
-                anagrams[sortedWord] = []
-            } 
-            anagrams[sortedWord]!.append(word)
+            anagrams[sortedWord, default: []].append(word)
         }
 
-        var results: [[String]] = []
-        for (_, anagramList) in anagrams {
-            results.append(anagramList)
-        }
-        return results
+        return Array(anagrams.values)
     }
 }
