@@ -25,8 +25,8 @@ class Solution:
         for row in range(rows):
             for column in range(columns):
                 if grid[row][column] == "1" and (row, column) not in visit:
-                    bfs(row, column)
                     result += 1
+                    bfs(row, column)
 
         return result
 
