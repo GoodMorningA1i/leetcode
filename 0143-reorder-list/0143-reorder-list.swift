@@ -1,92 +1,52 @@
-"""
-You are given the head of a singly linked-list. The list can be represented as:
-
-L0 → L1 → … → Ln - 1 → Ln
-Reorder the list to be on the following form:
-
-L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
-You may not modify the values in the list's nodes. Only nodes themselves may be changed.
-
-
-Linked List
-[1,2,3,4,5,6,7] -> null
-^
-       ^      ^
-
-[1,2,3,4] -> null
-^
-
-7 -> 6 -> 5
-[7,6,5]
-^
-
-3 -> 2 -> 1
-
-
-[1, 7]
-[1,7,2,6,3,5,4]
-
-
-1) Get the length of linked list
-2) Go to the middle of linked list
-3) We have a pointer at the start
-
-[1, 1000]
-linked list has at least 1 node
-
-
-
-"""
-
-// class ListNode {
-//     public var val: Int
-//     public var next: ListNode?
-//     public init(val: Int = 0, next: ListNode? = nil) {
-//         self.val = val
-//         self.next = next
-//     }
-// }
-
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public var val: Int
+ *     public var next: ListNode?
+ *     public init() { self.val = 0; self.next = nil; }
+ *     public init(_ val: Int) { self.val = val; self.next = nil; }
+ *     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; }
+ * }
+ */
 class Solution {
-    func reorderList(_ head: ListNode?) -> ListNode? {
-        """
-        [1,2,3,4,5,6,7]
-        2 -> 1
+    func reorderList(_ head: ListNode?) {
+        //slow x1 and fast pointer x2
+        //then from slow + 1, reverse and cut the first half off from the second
+        //then have a reference both and do your pointer switching technique
 
-        1 -> 2
-        temp = 2 -> 3 -> ...
-        1 -> nil
-        temp.next = 1
 
-        2 -> 1
-        3
-        3 -> 2 -> 1
+        var slow = head
+        var fast = head
+        while let s = slow, let f = fast, let _ = fast?.next {
+            slow = s.next
+            fast = f.next?.next
+        }
 
-        """
+        var endOfFirstHalf = slow
+        var startOfSecondHalf = slow?.next
+        endOfFirstHalf?.next = nil
 
-        var curr = head
-        var arr: [ListNode?] = []
+        var prev: ListNode? = nil
+        var curr = startOfSecondHalf
         while let node = curr {
-            arr.append(node)
-            curr = node.next
-        }
-        
-        var result = ListNode()
-        var currResult: ListNode? = result
-        var l = 0
-        var r = arr.count - 1
-        while l <= r {
-            currResult?.next = arr[l]
-            l += 1
-            currResult = currResult?.next
-            print(currResult?.val)
-
-            currResult?.next = arr[r]
-            r -= 1
-            currResult = currResult?.next
-            print(currResult?.val)
+            var temp = node.next
+            node.next = prev
+            prev = node
+            curr = temp
         }
 
-        return result.next
+        var first = head
+        var second = prev
+
+        while let node1 = first, let node2 = second {
+            var temp = node1.next
+            node1.next = second
+            first = node1.next
+
+            var temp2 = node2.next
+            node2.next = temp
+            second = node2.next
+            first?.next = temp2
+        }
     }
 }
