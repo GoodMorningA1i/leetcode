@@ -18,14 +18,13 @@ class Solution:
         l = 0 
         r = k - 1
         
-        while r < len(s):
-            if s[l] in vowels:
-                current -= 1
-            if r < len(s) - 1 and s[r + 1] in vowels:
-                current += 1
-                
-            l += 1
-            r += 1
-            max_vowels = max(max_vowels, current)
-        
+        for i in range(k, len(s)): 
+            if s[i - k] in vowels:
+                current -= 1 
+            
+            if s[i] in vowels:
+                current += 1 
+            
+            max_vowels = max(current, max_vowels)
+            
         return max_vowels
