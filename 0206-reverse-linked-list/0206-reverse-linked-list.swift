@@ -15,7 +15,7 @@ class Solution {
         while let node = curr {
             var temp = node.next
             node.next = prev
-            prev = curr
+            prev = node
             curr = temp
         }
         return prev
