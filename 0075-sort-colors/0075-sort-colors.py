@@ -4,22 +4,17 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
         i = 0
-        lastModified = -1
-        lenZerosFront = 0
-        lenTwosEnd = 0
-        while i < len(nums):
+        l, r = 0, len(nums) - 1
+        while i <= r:
             if nums[i] == 0:
-                nums.pop(i)
-                nums.insert(0, 0)
-                lastModified = lenZerosFront
-                lenZerosFront += 1
+                temp = nums[l]
+                nums[l] = nums[i]
+                nums[i] = temp
+                l += 1
             elif nums[i] == 2:
-                nums.pop(i)
-                nums.append(2)
-                lastModified = lenTwosEnd
-                lenTwosEnd += 1
-            else:
-                lastModified = i
-            
-            if i == lastModified:
-                i += 1
+                temp = nums[r]
+                nums[r] = nums[i]
+                nums[i] = temp
+                r -= 1
+                i -= 1
+            i += 1
