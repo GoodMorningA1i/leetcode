@@ -1,13 +1,16 @@
 class Solution:
-    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:        
-        result = defaultdict(list)
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        #sort each word
+        #add them into a dictionary
+        #return back the value
 
-        for s in strs:
-            sorted_str = ''.join(sorted(s))
-            result[sorted_str].append(s)
+        #Time Complexity
+        #Sort each word: n * 100 * log(100)
+        #Space Complexity: O(n) Dictionary
 
-        return list(result.values())
-
-       #Time Complexity: O(m*nlogn)
-       #Space Complexity: O(m*n)
+        anagrams = defaultdict(list)
+        for word in strs:
+            sortedWord = "".join(sorted(word))
+            anagrams[sortedWord].append(word)
         
+        return list(anagrams.values())
