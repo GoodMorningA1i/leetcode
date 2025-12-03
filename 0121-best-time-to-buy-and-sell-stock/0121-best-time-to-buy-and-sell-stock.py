@@ -1,18 +1,16 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        maxResult = 0
+        res = 0
         l = 0
         r = 1
 
         while r < len(prices):
-            if prices[l] > prices[r]:
+            if prices[l] < prices[r]:
+                res = max(res, prices[r] - prices[l])
+                r += 1
+            else:
                 l = r
-            maxResult = max(maxResult, prices[r] - prices[l])
-            r += 1
+                r += 1
 
-        return maxResult
-
-"""
-prices = [5,2,5,9,1]
-Buy on prices[1], sell on prices[3]
-"""
+        return res
+            
