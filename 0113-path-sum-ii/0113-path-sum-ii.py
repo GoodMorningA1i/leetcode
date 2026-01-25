@@ -19,16 +19,17 @@ class Solution:
 
         def dfs(node, sum, nodesOfSum):
             if not node:
-                if sum == targetSum:
-                    print(sum)
-                    self.res.append(nodesOfSum)
                 return
             
-            nodesOfSum.append(node.val)
             sum += node.val
-            dfs(node.left, sum, nodesOfSum)
-            dfs(node.right, sum, nodesOfSum)
-            # nodesOfSum.pop()
+            nodesOfSum.append(node.val)
+            if sum == targetSum and not node.left and not node.right:
+                self.res.append(nodesOfSum.copy())
+            else:
+                dfs(node.left, sum, nodesOfSum)
+                dfs(node.right, sum, nodesOfSum)
+            
+            nodesOfSum.pop()
         
         dfs(root, 0, [])
         return self.res
