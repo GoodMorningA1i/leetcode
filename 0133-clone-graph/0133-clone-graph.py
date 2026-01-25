@@ -9,16 +9,29 @@ class Node:
 from typing import Optional
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
-        oldToNew = {}
-        
+        """
+        whenever we add to visit, we need to create a new node
+        if we see something in visited, add the edge to neighbours but don't dfs into it
+        Note: for DFS, the stack is the recursion itself *mind-blown
+
+        Time: O(V + E), O(V) since E will be at most V
+        Space: O(V)
+        """
+        self.visited = set()
+        self.valToNode = {}
         def dfs(node):
-            if node in oldToNew:
-                return oldToNew[node]
-            
-            copy = Node(node.val)
-            oldToNew[node] = copy
-            for nei in node.neighbors:
-                copy.neighbors.append(dfs(nei))
-            return copy
-        
-        return dfs(node) if node else None
+            if not node:
+                return None
+
+            newNode = Node(node.val)
+            self.visited.add(node.val)
+            self.valToNode[node.val] = newNode
+            for neighbour in node.neighbors:
+                if neighbour.val not in self.visited:
+                    newNode.neighbors.append(dfs(neighbour))
+                else:
+                    newNode.neighbors.append(self.valToNode[neighbour.val])
+            return newNode
+
+        return dfs(node)
+
