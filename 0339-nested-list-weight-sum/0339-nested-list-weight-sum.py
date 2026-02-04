@@ -55,18 +55,17 @@ class Solution:
         self.elems = []
         self.depths = []
 
-        def dfs(elem, depth):
-            if elem.isInteger():
-                #base case
-                self.elems.append(elem.getInteger())
-                self.depths.append(depth)
-            else:
-                #recurisve case
-                for e in elem.getList():
-                    dfs(e, depth + 1)
+        def dfs(lst, depth):
+            for nestedInt in lst:
+                if nestedInt.isInteger():
+                    #base case
+                    self.elems.append(nestedInt.getInteger())
+                    self.depths.append(depth)
+                else:
+                    #recurisve case
+                    dfs(nestedInt.getList(), depth + 1)
 
-        for elem in nestedList:
-            dfs(elem, 1)
+        dfs(nestedList, 1)
         
         res = 0
         for i in range(len(self.elems)):
