@@ -1,13 +1,6 @@
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
-        """
-
-        _ _ _ _
-        ^ ^
-        | |
-        3 3
-        """
-
+        res = []
         digitsToChar = {
             "2": "abc",
             "3": "def",
@@ -19,22 +12,15 @@ class Solution:
             "9": "wxyz"
         }
 
-        def dfs(i, currComb, comb):
-            if len(digits) == len(currComb):
-                comb.append("".join(currComb))
+        def backtrack(i, currStr):
+            if len(digits) == len(currStr):
+                res.append(currStr)
                 return
-            if i >= len(digits):
-                return
-
+            
             for c in digitsToChar[digits[i]]:
-                #include i
-                currComb.append(c)
-                dfs(i + 1, currComb, comb)
-                currComb.pop()
+                backtrack(i + 1, currStr + c)
+        
+        if digits:
+            backtrack(0, "")
 
-                # #don't include i
-                dfs(i + 1, currComb, comb)
-
-        res = []
-        dfs(0, [], res)
         return res
