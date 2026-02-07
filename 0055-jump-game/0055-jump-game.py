@@ -1,9 +1,17 @@
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
-        goal = len(nums) - 1
+        """
 
-        for i in range(len(nums) - 1, -1, -1):
-            if i + nums[i] >= goal:
-                goal = i
+        """
+
+
+        i = len(nums) - 1 - 1
+        flag = len(nums) - 1
         
-        return goal == 0
+        while i >= 0:
+            if flag - i <= nums[i]:
+                flag = i
+            i -= 1
+
+        return flag == 0
+            
