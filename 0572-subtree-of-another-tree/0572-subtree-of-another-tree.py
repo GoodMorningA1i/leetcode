@@ -10,16 +10,18 @@ class Solution:
             return True
         if not root:
             return False
-        
+
         if self.sameTree(root, subRoot):
             return True
 
         return self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot)
 
-    def sameTree(self, root: Optional[TreeNode], otherRoot: Optional[TreeNode]) -> bool:
-        if not root and not otherRoot:
+    def sameTree(self, s, t):
+        if not s and not t:
             return True
-        if root and otherRoot and root.val == otherRoot.val:
-            return self.sameTree(root.left, otherRoot.left) and self.sameTree(root.right, otherRoot.right)
-        
+        if s and t and s.val == t.val:
+            left = self.sameTree(s.left, t.left)
+            right = self.sameTree(s.right, t.right)
+            return left and right
         return False
+        
